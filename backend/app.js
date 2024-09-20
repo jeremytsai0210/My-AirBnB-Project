@@ -26,28 +26,29 @@ app.use(express.json());
 if (!isProduction) {
     // Enable CORS only in development.
     app.use(cors());
-  }
+}
   
   // helmet helps set a variety of headers to better secure your app.
-  app.use(
+app.use(
     helmet.crossOriginResourcePolicy({
-      policy: "cross-origin"
+        policy: "cross-origin"
     })
-  );
+);
   
   // Set the _csrf token and create req.csrfToken method.
-  app.use(
+app.use(
     csurf({
-      cookie: {
-        secure: isProduction,
-        sameSite: isProduction && "Lax",
-        httpOnly: true
-      }
+        cookie: {
+            secure: isProduction,
+            sameSite: isProduction && "Lax",
+            httpOnly: true
+        }
     })
-  );
+);
 
-  /* ------------------------------ End Middlewares ------------------------------ */
-  // Connect all the routes AFTER al the middlewares
+/* ------------------------------ End Middlewares ------------------------------ */
+
+// Connect all the routes AFTER al the middlewares
 app.use(routes);
 
-  module.exports = app;
+module.exports = app;
